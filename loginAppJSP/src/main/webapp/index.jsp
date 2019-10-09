@@ -26,7 +26,12 @@ Your access is <c:out value="${sessionScope.role}"></c:out>
 			<br>
 			password<input type="password" name="password"  />
 			<br>
-<input type="submit" value="AddAdmin">
+			role<select name="role" >
+			<option>ADMIN</option>
+			<option>USER</option>
+			</select>
+			<br>
+<input type="submit" value="AddUser">
 </form>
 </c:if>
 		<br>

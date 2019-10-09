@@ -37,7 +37,8 @@ public class AddAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User user = new User(request.getParameter("login"), request.getParameter("password"), Role.ADMIN);
+		User user = new User(request.getParameter("login"), request.getParameter("password"),
+				Role.valueOf(request.getParameter("role")));
 		if (!userService.verifyUser(user)) {
 			userService.saveUser(user);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
