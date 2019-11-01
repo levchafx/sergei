@@ -37,10 +37,15 @@ public class AddAdmin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		User user = new User(request.getParameter("login"), request.getParameter("password"),
+		User user = new User(request.getParameter("name"), request.getParameter("surname"),
+				Integer.parseInt(request.getParameter("age")), request.getParameter("email"),
+				request.getParameter("login"), request.getParameter("password"),
 				Role.valueOf(request.getParameter("role")));
 		if (!userService.verifyUser(user)) {
-			userService.saveUser(user);
+			userService.saveUser(new User(request.getParameter("name"), request.getParameter("surname"),
+					Integer.parseInt(request.getParameter("age")), request.getParameter("email"),
+					request.getParameter("login"), request.getParameter("password"),
+					Role.valueOf(request.getParameter("role"))));
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
 			request.setAttribute("error", "please choose another login");

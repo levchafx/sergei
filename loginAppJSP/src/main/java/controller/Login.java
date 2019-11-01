@@ -30,7 +30,9 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User user = new User(request.getParameter("login"), request.getParameter("password"));
+		User user = new User();
+		user.setLogin(request.getParameter("login"));
+		user.setPassword(request.getParameter("password"));
 		HttpSession session = request.getSession();
 
 		if (userService.verifyUser(user)) {

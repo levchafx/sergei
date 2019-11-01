@@ -22,11 +22,15 @@ Your access is <c:out value="${sessionScope.role}"></c:out>
 <br>
 <c:out value="${requestScope.error }" ></c:out>
 <form action="AddAdmin" method = "post">
-			login<input type="text" name="login"  />
+        name <input type="text" name="name"><br> <br>
+		surname <input type="text" name="surname"><br> <br>
+		email <input type="email" name="email"><br> <br>
+		age <input type="text" name="age"><br> <br>
+		login<input type="text" name="login"  >
 			<br>
-			password<input type="password" name="password"  />
+		password<input type="password" name="password"  >
 			<br>
-			role<select name="role" >
+		role<select name="role" >
 			<option>ADMIN</option>
 			<option>USER</option>
 			</select>
@@ -43,6 +47,10 @@ Your access is <c:out value="${sessionScope.role}"></c:out>
 			<form action="Delete" method = "post">
 			<input type="hidden" name="login" value="${user.login}" />
 <input type="submit" value="Delete">
+</form>
+<form action="Update" method = "post">
+			<input type="hidden" name="login" value="${user.login}" />
+<input type="submit" value="Update">
 </form>
 			</c:if>
 			<br>
