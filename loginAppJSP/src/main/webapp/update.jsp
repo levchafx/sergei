@@ -20,7 +20,11 @@
 		<input type="text" name="age" value = "${user.age}"><br> <br> login <input
 			type="text" name="login" value = "${user.login}"><br> <br> password <input
 			type="text" name="password" value = "${user.password}"><br> <br> 
-			profile enabled<input type="text" readonly name="profile_enable" value = "${user.profile_enable}"><br><br>
+			<c:if test="${sessionScope.role =='ADMIN' }">
+			profile enabled<input type="text"  name="profile_enable" value = "${user.profile_enable}"><br><br>
+			</c:if>
+			
+			
 			role<input type="text" readonly name="role" value = "${user.role}">
 	<br>
 		<br> <input type="submit" value="Update">

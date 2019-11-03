@@ -47,11 +47,15 @@ public class Save extends HttpServlet {
 		user.setSurname(request.getParameter("surname"));
 		user.setAge(Integer.parseInt(request.getParameter("age")));
 		user.setEmail(request.getParameter("email"));
+		user.setLogin(request.getParameter("login"));
+		user.setPassword(request.getParameter("password"));
 		user.setRole(Role.valueOf(request.getParameter("role")));
-		user.setProfile_enable(Boolean.getBoolean(request.getParameter("profile_enable")));
+		user.setProfile_enable(Boolean.valueOf(request.getParameter("profile_enable")));
 		userService.updateUser(user);
-		request.getSession().removeAttribute("users");
-		request.getSession().setAttribute("users", userService.getUsers());
+		if (request.getSession().getAttribute("role") == Role.ADMIN) {
+			request.getSession().removeAttribute("users");
+			request.getSession().setAttribute("users", userService.getUsers());
+		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}

@@ -55,6 +55,13 @@ Your access is <c:out value="${sessionScope.role}"></c:out>
 		<br>
 		<a href="Logout">Logout</a>
 	</c:if>
+	<c:if test="${'USER' ==sessionScope.role }">
+	<form action="Update" method="post">
+					<input type="hidden" name="id" value="${user_id}" /> <input
+						type="submit" value="UpdateProfile">
+				</form>
+				
+	</c:if>
 	<c:if test="${user==null}">
 		<a href="login.jsp">Login</a>
 	</c:if>
