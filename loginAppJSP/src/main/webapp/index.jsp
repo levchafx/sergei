@@ -8,7 +8,7 @@
 	<h1>Welcome to my wonderful LoginApp</h1>
 	<br>
 	<c:if test="${user==null }">
-	<a href="register.jsp">Register</a>
+		<a href="register.jsp">Register</a>
 	</c:if>
 	<br>
 
@@ -17,41 +17,38 @@
 Welcome <c:out value="${sessionScope.user} "></c:out>
 		<br>
 Your access is <c:out value="${sessionScope.role}"></c:out>
-<c:if test="${'ADMIN'==sessionScope.role }">
-<br>
-<br>
-<c:out value="${requestScope.error }" ></c:out>
-<form action="AddAdmin" method = "post">
-        name <input type="text" name="name"><br> <br>
-		surname <input type="text" name="surname"><br> <br>
-		email <input type="email" name="email"><br> <br>
-		age <input type="text" name="age"><br> <br>
-		login<input type="text" name="login"  >
+		<c:if test="${'ADMIN'==sessionScope.role }">
 			<br>
-		password<input type="password" name="password"  >
 			<br>
-		role<select name="role" >
-			<option>ADMIN</option>
-			<option>USER</option>
-			</select>
-			<br>
-<input type="submit" value="AddUser">
-</form>
-</c:if>
+			<c:out value="${requestScope.error }"></c:out>
+			<form action="AddAdmin" method="post">
+				name <input type="text" name="name"><br> <br>
+				surname <input type="text" name="surname"><br> <br>
+				email <input type="email" name="email"><br> <br>
+				age <input type="text" name="age"><br> <br> login<input
+					type="text" name="login"> <br> password<input
+					type="password" name="password"> <br> confirm
+				password<input type="password" name="confirmpassword"> <br>
+				role<select name="role">
+					<option>ADMIN</option>
+					<option>USER</option>
+				</select> <br> <input type="submit" value="AddUser">
+			</form>
+		</c:if>
 		<br>
 
 		<c:forEach items="${sessionScope.users }" var="user">
 			<c:out value="${user }"></c:out>
 			<br>
 			<c:if test="${sessionScope.user ne user.login}">
-			<form action="Delete" method = "post">
-			<input type="hidden" name="login" value="${user.login}" />
-<input type="submit" value="Delete">
-</form>
-<form action="Update" method = "post">
-			<input type="hidden" name="login" value="${user.login}" />
-<input type="submit" value="Update">
-</form>
+				<form action="Delete" method="post">
+					<input type="hidden" name="user_id" value="${user.id}" /> <input
+						type="submit" value="Delete">
+				</form>
+				<form action="Update" method="post">
+					<input type="hidden" name="id" value="${user.id}" /> <input
+						type="submit" value="Update">
+				</form>
 			</c:if>
 			<br>
 		</c:forEach>

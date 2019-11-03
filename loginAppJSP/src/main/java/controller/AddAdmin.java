@@ -41,14 +41,15 @@ public class AddAdmin extends HttpServlet {
 				Integer.parseInt(request.getParameter("age")), request.getParameter("email"),
 				request.getParameter("login"), request.getParameter("password"),
 				Role.valueOf(request.getParameter("role")));
-		if (!userService.verifyUser(user)) {
-			userService.saveUser(new User(request.getParameter("name"), request.getParameter("surname"),
-					Integer.parseInt(request.getParameter("age")), request.getParameter("email"),
-					request.getParameter("login"), request.getParameter("password"),
-					Role.valueOf(request.getParameter("role"))));
+		if (userService.verifyRegistration(user.getLogin(), user.getPassword(), request.getParameter("confirmpassword"),
+				user.getEmail()).isEmpty()) {
+			userService.saveUser(user);
+			request.getSession().removeAttribute("users");
+			request.getSession().setAttribute("users", userService.getUsers());
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
-			request.setAttribute("error", "please choose another login");
+			request.setAttribute("error", userService.verifyRegistration(user.getLogin(), user.getPassword(),
+					request.getParameter("confirmpassword"), user.getEmail()));
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}

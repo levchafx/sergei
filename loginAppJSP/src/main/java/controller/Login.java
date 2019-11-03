@@ -35,10 +35,11 @@ public class Login extends HttpServlet {
 		user.setPassword(request.getParameter("password"));
 		HttpSession session = request.getSession();
 
-		if (userService.verifyUser(user)) {
+		if (userService.verifyUser(user.getLogin(), user.getPassword())) {
 			user = userService.getUserByLogin(user.getLogin());
 			session.setAttribute("user", user.getLogin());
 			session.setAttribute("role", user.getRole());
+			session.setAttribute("user_id", user.getId());
 
 			if (user.getRole() == Role.ADMIN) {
 				session.setAttribute("users", userService.getUsers());

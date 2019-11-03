@@ -6,13 +6,13 @@ CREATE TABLE users (
   id int NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',
   surname varchar(255) NOT NULL,
- email varchar(255) NOT NULL,
+ email varchar(255) unique NOT NULL,
  age int NOT NULL,
   PRIMARY KEY  (id)
  );
  CREATE TABLE authenticate (
-  id int NOT NULL auto_increment,
- login varchar(45) NOT NULL default '',
+  id int NOT NULL,
+ login varchar(45) unique NOT NULL  ,
   password varchar(45) NOT NULL,
   profile_enable boolean NOT NULL,
   PRIMARY KEY  (id)
