@@ -23,7 +23,9 @@
 			<c:if test="${sessionScope.role =='ADMIN' }">
 			profile enabled<input type="text"  name="profile_enable" value = "${user.profile_enable}"><br><br>
 			</c:if>
-			
+			<c:if test="${sessionScope.role =='USER' }">
+			profile enabled<input type="text" readonly name="profile_enable" value = "${user.profile_enable}"><br><br>
+			</c:if>
 			
 			role<input type="text" readonly name="role" value = "${user.role}">
 	<br>

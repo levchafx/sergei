@@ -1,7 +1,10 @@
+drop schema login_app if exists;
 drop table if exists users ;
 drop table if exists authenticate;
 drop table if exists roles;
 drop table if exists users_roles;
+create schema login_app;
+use login_app;
 CREATE TABLE users (
   id int NOT NULL auto_increment,
   name varchar(255) NOT NULL default '',

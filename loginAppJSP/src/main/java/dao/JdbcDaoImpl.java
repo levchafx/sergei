@@ -43,7 +43,7 @@ public class JdbcDaoImpl implements UserDao {
 		String sql3 = "select*from users where email =(?)";
 		String sql4 = "insert into users_roles (user_id,role_id) values (?,?)";
 		try (Connection cn = DatabaseConnection.getInstance().getConnection();
-				PreparedStatement st = cn.prepareStatement(sql1);
+				PreparedStatement st = cn.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 				PreparedStatement st1 = cn.prepareStatement(sql2);
 				PreparedStatement st2 = cn.prepareStatement(sql3);
 				PreparedStatement st3 = cn.prepareStatement(sql4)) {
@@ -54,12 +54,17 @@ public class JdbcDaoImpl implements UserDao {
 				st.setInt(3, user.getAge());
 				st.setString(4, user.getEmail());
 				i = st.executeUpdate();
-				st2.setString(1, user.getEmail());
-				ResultSet rs = st2.executeQuery();
-				if (rs.next()) {
-					rs.getInt("id");
-					user.setId(rs.getInt("id"));
+				if (i != 0) {
+					ResultSet rs = st.getGeneratedKeys();
+					if (rs.next()) {
+						user.setId(rs.getInt(1));
+						System.out.println(user.getId());
+					}
 				}
+				/*
+				 * st2.setString(1, user.getEmail()); ResultSet rs = st2.executeQuery(); if
+				 * (rs.next()) { rs.getInt("id"); user.setId(rs.getInt("id")); }
+				 */
 				st1.setInt(1, user.getId());
 				st1.setString(2, user.getLogin());
 				st1.setString(3, user.getPassword());

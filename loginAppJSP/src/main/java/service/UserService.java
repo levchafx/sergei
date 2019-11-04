@@ -55,4 +55,12 @@ public class UserService {
 	public void updateUser(User user) {
 		userDaoImpl.updateUser(user);
 	}
+
+	public boolean verifyEmail(String email) {
+		return userDaoImpl.verifyEmail(email);
+	}
+
+	public boolean verifyLogin(String login) {
+		return userDaoImpl.verifyLogin(login);
+	}
 }
