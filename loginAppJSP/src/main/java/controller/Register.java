@@ -27,12 +27,15 @@ public class Register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (userService.verifyRegistration(request.getParameter("login"), request.getParameter("password"),
-				request.getParameter("confirmpassword")).isEmpty()) {
-			userService.saveUser(new User(request.getParameter("login"), request.getParameter("password")));
+				request.getParameter("confirmpassword"), request.getParameter("email")).isEmpty()) {
+			userService.saveUser(new User(request.getParameter("name"), request.getParameter("surname"),
+					Integer.parseInt(request.getParameter("age")), request.getParameter("email"),
+					request.getParameter("login"), request.getParameter("password")));
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
-			request.setAttribute("error", userService.verifyRegistration(request.getParameter("login"),
-					request.getParameter("password"), request.getParameter("confirmpassword")));
+			request.setAttribute("error",
+					userService.verifyRegistration(request.getParameter("login"), request.getParameter("password"),
+							request.getParameter("confirmpassword"), request.getParameter("email")));
 			request.getRequestDispatcher("/register.jsp").forward(request, response);
 		}
 

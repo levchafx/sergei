@@ -30,13 +30,16 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		User user = new User(request.getParameter("login"), request.getParameter("password"));
+		User user = new User();
+		user.setLogin(request.getParameter("login"));
+		user.setPassword(request.getParameter("password"));
 		HttpSession session = request.getSession();
 
-		if (userService.verifyUser(user)) {
+		if (userService.verifyUser(user.getLogin(), user.getPassword())) {
 			user = userService.getUserByLogin(user.getLogin());
 			session.setAttribute("user", user.getLogin());
 			session.setAttribute("role", user.getRole());
+			session.setAttribute("user_id", user.getId());
 
 			if (user.getRole() == Role.ADMIN) {
 				session.setAttribute("users", userService.getUsers());

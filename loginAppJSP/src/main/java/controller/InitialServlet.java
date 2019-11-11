@@ -34,9 +34,17 @@ public class InitialServlet extends HttpServlet {
 		UserService userService = new UserService();
 		User admin = new User(getInitParameter("admin1"), getInitParameter("password1"), Role.ADMIN);
 		User admin1 = new User(getInitParameter("admin2"), getInitParameter("password2"), Role.ADMIN);
+		admin.setEmail("admin@ad.ru");
+		admin1.setEmail("admin1@ad.ru");
+		admin.setName("admin");
+		admin1.setName("admin1");
+		admin.setAge(20);
+		admin1.setAge(20);
+		admin.setSurname("admin");
+		admin1.setSurname("admin1");
 		userService.saveUser(admin);
 		userService.saveUser(admin1);
-		System.out.println(userService.getUsers());
+		// System.out.println(userService.getUsers());
 		request.getSession().setMaxInactiveInterval(600);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

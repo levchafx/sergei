@@ -2,14 +2,19 @@ package service;
 
 import java.util.List;
 
-import dao.UserDaoImpl;
+import dao.JdbcDaoImpl;
+import dao.UserDao;
 import model.User;
 
 public class UserService {
-	private UserDaoImpl userDaoImpl = new UserDaoImpl();
+	private UserDao userDaoImpl = new JdbcDaoImpl();
 
 	public User getUserByLogin(String login) {
 		return userDaoImpl.getUserByLogin(login);
+	}
+
+	public User getUserById(int id) {
+		return userDaoImpl.getUserById(id);
 	}
 
 	public void saveUser(User user) {
@@ -17,20 +22,20 @@ public class UserService {
 		userDaoImpl.saveUser(user);
 	}
 
-	public boolean verifyUser(User user) {
+	public boolean verifyUser(String login, String password) {
 
-		return userDaoImpl.verifyUser(user);
+		return userDaoImpl.verifyUser(login, password);
 	}
 
 	public List<User> getUsers() {
-		return userDaoImpl.getUsers();
+		return userDaoImpl.getAll();
 	}
 
-	public void deleteUser(String login) {
-		userDaoImpl.deleteUser(login);
+	public void deleteUser(int id) {
+		userDaoImpl.deleteUser(id);
 	}
 
-	public String verifyRegistration(String login, String password, String confirmPassword) {
+	public String verifyRegistration(String login, String password, String confirmPassword, String email) {
 		String str = "";
 		if (login.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
 			str = "please make sure all fields are filled in";
@@ -38,9 +43,24 @@ public class UserService {
 		if (!password.equals(confirmPassword)) {
 			str = "wrong password";
 		}
-		if (userDaoImpl.verifyUser(new User(login, password))) {
+		if (userDaoImpl.verifyEmail(email)) {
+			str = "provide another email";
+		}
+		if (userDaoImpl.verifyLogin(login)) {
 			str = "please choose another login";
 		}
 		return str;
+	}
+
+	public void updateUser(User user) {
+		userDaoImpl.updateUser(user);
+	}
+
+	public boolean verifyEmail(String email) {
+		return userDaoImpl.verifyEmail(email);
+	}
+
+	public boolean verifyLogin(String login) {
+		return userDaoImpl.verifyLogin(login);
 	}
 }

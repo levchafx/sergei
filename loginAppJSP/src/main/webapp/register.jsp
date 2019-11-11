@@ -19,7 +19,12 @@
 	<br>
 	<form method="POST"
 		action="${pageContext.request.contextPath}/Register">
-		name <input type="text" name="login"><br> <br>
+		
+		name <input type="text" name="name"><br> <br>
+		surname <input type="text" name="surname"><br> <br>
+		email <input type="email" name="email"><br> <br>
+		age <input type="text" name="age"><br> <br>
+		login <input type="text" name="login"><br> <br>
 		password <input type="password" name="password"><br> <br>
 		confirm password<input type="password" name="confirmpassword"><br>
 		<br> <input type="submit" value="Register">
